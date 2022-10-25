@@ -1,7 +1,7 @@
 #include "matrix.h"
 #include "check.h"
 #include <stdio.h>
-
+#include <stdlib.h>
 // macro definition for bool
 typedef char bool;
 #define true 1
@@ -28,17 +28,29 @@ typedef struct _Matrix
 } Matrix;
 
 // Function to create a matrix
-bool createMatrix(type rows, type cols, float * pData, Matrix * mat)
+bool createMatrix(type rows, type cols, float * ptrData, Matrix * ptrMat)
 {
-    mat->rows = rows;
-    mat->cols = cols;
-    mat->pData = pData;
+    ptrMat->rows = rows;
+    ptrMat->cols = cols;
+    ptrMat->pData = (float *) malloc(rows*cols*sizeof(float));
+    type num = rows * cols;
+    // check if the number of elements in ptrData is the same as the valid number of the matrix (which equals to rows*cols)
+    //TODO!!
+
+    // copy the element in ptrData to pData in the matrix one by one
+    for (int i = 0; i < num; i++)
+    {
+        float tmp = ptrData[i];
+        ptrMat->pData[i] = tmp;
+    }
     return true;
 }
 
 // Function to delete a matrix
-bool deleteMatrix()
+bool deleteMatrix(Matrix * ptrMat)
 {
+    if (ptrMat == NULL) return false;
+    free(ptrMat->pData);
     return true;
 }
 
@@ -98,13 +110,21 @@ long long findMax()
 
 int main()
 {
-    Matrix mat = {};
-    // printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
-    float pData[2] = {1.0f, 2.0f};
-    createMatrix(1ll,2ll,pData,&mat);
-    // printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
-    // printf("Data 1 is %f, data 2 is %f\n", pData[0], pData[1]);
 
+    Matrix mat = {};
+
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+
+    float ptrData[2] = {1.0f, 2.0f};
+    bool flagCreate = createMatrix(1ll,2ll,ptrData,&mat);
+
+    printf("create is success? %d\n", flagCreate);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    bool flagDelete = deleteMatrix(&mat);
+
+    printf("delete is success? %d\n", flagDelete);
 }
 
 
