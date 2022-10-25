@@ -170,9 +170,22 @@ float findMin(Matrix * ptrMat, float * ptrMin)
 }
 
 // Function to find maximal value of a matrix
-long long findMax()
+bool findMax(Matrix * ptrMat, float * ptrMax)
 {
-    return 0ll;
+    float currMax = __FLT_MIN__;
+
+    type rows = ptrMat->rows;   
+    type cols = ptrMat->cols;
+    type num = rows*cols;
+
+    for (int i = 0; i < num; i++)
+    {
+        float tmp = ptrMat->pData[i];
+        currMax = (currMax < tmp) ? tmp : currMax;
+    } 
+    *ptrMax = currMax;
+
+    return true;
 }
 
 int main()
@@ -229,6 +242,13 @@ int main()
     bool flagFindMin = findMin(&mat, &min);
     printf("finding min is success? %d\n", flagFindMin);
     printf("min is %f\n", min);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    float max;
+    bool flagFindMax = findMax(&mat, &max);
+    printf("finding max is success? %d\n", flagFindMax);
+    printf("max is %f\n", max);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
