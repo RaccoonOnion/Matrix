@@ -83,9 +83,21 @@ bool addMatrix(Matrix * ptrMat1, Matrix * ptrMat2)
     return true;
 }
 
-// Function to do matrix subtraction
-bool subtractMatrix()
+// Funciton to subtract matrix2 from matrix1
+bool subtractMatrix(Matrix * ptrMat1, Matrix * ptrMat2)
 {
+    // check if two matrices have the same size!!
+    // TODO!!!!!
+    type rows = ptrMat1->rows;
+    type cols = ptrMat1->cols;
+    type num = rows * cols;
+    for (int i = 0; i < num; i++)
+    {
+        // check!!!
+        type value1 = ptrMat1->pData[i];
+        type value2 = ptrMat2->pData[i];
+        ptrMat1->pData[i] = value1 - value2;
+    }
     return true;
 }
 
@@ -152,6 +164,11 @@ int main()
 
     bool flagAdd = addMatrix(&mat, &mat2);
     printf("addition is success? %d\n", flagAdd);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    bool flagSub = subtractMatrix(&mat, &mat2);
+    printf("subtraction is success? %d\n", flagSub);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
