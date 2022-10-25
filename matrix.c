@@ -76,8 +76,8 @@ bool addMatrix(Matrix * ptrMat1, Matrix * ptrMat2)
     for (int i = 0; i < num; i++)
     {
         // check!!!
-        type value1 = ptrMat1->pData[i];
-        type value2 = ptrMat2->pData[i];
+        float value1 = ptrMat1->pData[i];
+        float value2 = ptrMat2->pData[i];
         ptrMat1->pData[i] = value1 + value2;
     }
     return true;
@@ -94,16 +94,32 @@ bool subtractMatrix(Matrix * ptrMat1, Matrix * ptrMat2)
     for (int i = 0; i < num; i++)
     {
         // check!!!
-        type value1 = ptrMat1->pData[i];
-        type value2 = ptrMat2->pData[i];
+        float value1 = ptrMat1->pData[i];
+        float value2 = ptrMat2->pData[i];
         ptrMat1->pData[i] = value1 - value2;
     }
     return true;
 }
 
 // Function to add a scalar to a matrix
-bool addScalar()
+bool addScalar(float a, Matrix * ptrMat)
 {
+    type rows = ptrMat->rows;
+    type cols = ptrMat->cols;
+    type num = rows*cols;
+
+    Matrix mat = {};
+
+    float ptrData[num];
+    for (int i = 0; i < num; i++)
+    {
+        ptrData[i] = a;
+    } 
+
+    createMatrix(rows, cols, ptrData, &mat);
+    addMatrix(ptrMat, &mat);
+    deleteMatrix(&mat);
+
     return true;
 }
 
@@ -169,6 +185,11 @@ int main()
 
     bool flagSub = subtractMatrix(&mat, &mat2);
     printf("subtraction is success? %d\n", flagSub);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    bool flagAddScalar = addScalar(1.0, &mat);
+    printf("adding scalar is success? %d\n", flagAddScalar);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
