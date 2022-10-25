@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "check.h"
+#include <stdio.h>
 
 // macro definition for bool
 typedef char bool;
@@ -27,14 +28,16 @@ typedef struct _Matrix
 } Matrix;
 
 // Function to create a matrix
-Matrix * createMatrix(type rows, type cols, float * pData)
+bool createMatrix(type rows, type cols, float * pData, Matrix * mat)
 {
-    Matrix mat = {};
-    return &mat;
+    mat->rows = rows;
+    mat->cols = cols;
+    mat->pData = pData;
+    return true;
 }
 
 // Function to delete a matrix
-bool createMatrix()
+bool deleteMatrix()
 {
     return true;
 }
@@ -91,6 +94,17 @@ long long findMin()
 long long findMax()
 {
     return 0ll;
+}
+
+int main()
+{
+    Matrix mat = {};
+    // printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    float pData[2] = {1.0f, 2.0f};
+    createMatrix(1ll,2ll,pData,&mat);
+    // printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    // printf("Data 1 is %f, data 2 is %f\n", pData[0], pData[1]);
+
 }
 
 
