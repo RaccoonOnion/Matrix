@@ -124,8 +124,9 @@ bool addScalar(float a, Matrix * ptrMat)
 }
 
 // Function to subtract a scalar from a matrix
-bool subtractScalar()
+bool subtractScalar(float a, Matrix * ptrMat)
 {
+    addScalar(-a, ptrMat);
     return true;
 }
 
@@ -190,6 +191,11 @@ int main()
 
     bool flagAddScalar = addScalar(1.0, &mat);
     printf("adding scalar is success? %d\n", flagAddScalar);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    bool flagSubScalar = subtractScalar(1.0, &mat);
+    printf("subtracting scalar is success? %d\n", flagSubScalar);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
