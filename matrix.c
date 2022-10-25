@@ -145,9 +145,33 @@ bool multiplyScalar(float k, Matrix * ptrMat)
     return true;
 }
 
-// Function to multiply two matrices
-bool multiplyMatrices()
+// Function to do Matrix1 * Matrix2 and then assign to Matrix3
+bool multiplyMatrices(Matrix * ptrMat1, Matrix * ptrMat2, Matrix * ptrMat3)
 {
+    // check sizes!!!
+    // TODO
+    type a = ptrMat1->rows;
+    type b = ptrMat1->cols;
+    type c = ptrMat2->cols;
+    type num = a*c;
+
+    float ptrData[num];
+
+    for (int row = 0; row < a; row++)
+    {
+        for (int col = 0; col < c; col++)
+        {
+            float sum = 0.0f;
+            for (int i = 0; i < b; i++)
+            {
+                sum += (ptrMat1->pData[b*row+i]) * (ptrMat2->pData[i*c+col]);
+            }
+            ptrData[c*row+col] = sum;
+        }
+    }
+
+    createMatrix(a, c, ptrData, ptrMat3);
+
     return true;
 }
 
@@ -251,6 +275,16 @@ int main()
     printf("max is %f\n", max);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    Matrix A = {};
+    Matrix B = {};
+    Matrix C = {};
+    float data1[4] = {1.0, 2.0, 3.0, 4.0};
+    float data2[6] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+    createMatrix(2,2,data1,&A);
+    createMatrix(2,3,data2,&B);
+    multiplyMatrices(&A, &B, &C);
+    printf("For matrix C: Data 1 is %f, data 2 is %f, Data 3 is %f, data 4 is %f, Data 5 is %f, data 6 is %f\n", C.pData[0], C.pData[1], C.pData[2], C.pData[3], C.pData[4], C.pData[5]);
 }
 
 
