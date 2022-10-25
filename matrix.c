@@ -131,8 +131,17 @@ bool subtractScalar(float a, Matrix * ptrMat)
 }
 
 // Function to multiply a matrix with a scalar
-bool multiplyScalar()
+bool multiplyScalar(float k, Matrix * ptrMat)
 {
+    type rows = ptrMat->rows;
+    type cols = ptrMat->cols;
+    type num = rows*cols;
+
+    for (int i = 0; i < num; i++)
+    {
+        ptrMat->pData[i] *= k;
+    } 
+
     return true;
 }
 
@@ -196,6 +205,11 @@ int main()
 
     bool flagSubScalar = subtractScalar(1.0, &mat);
     printf("subtracting scalar is success? %d\n", flagSubScalar);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    bool flagMulScalar = multiplyScalar(2.0, &mat);
+    printf("multiplying scalar is success? %d\n", flagMulScalar);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
