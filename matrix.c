@@ -65,9 +65,21 @@ bool copyMatrix(Matrix * ptrMatSrc, Matrix * ptrMatDest)
     return true;
 }
 
-// Funciton to add two matrces together
-bool addMatrix()
+// Funciton to add matrix2 to matrix1
+bool addMatrix(Matrix * ptrMat1, Matrix * ptrMat2)
 {
+    // check if two matrices have the same size!!
+    // TODO!!!!!
+    type rows = ptrMat1->rows;
+    type cols = ptrMat1->cols;
+    type num = rows * cols;
+    for (int i = 0; i < num; i++)
+    {
+        // check!!!
+        type value1 = ptrMat1->pData[i];
+        type value2 = ptrMat2->pData[i];
+        ptrMat1->pData[i] = value1 + value2;
+    }
     return true;
 }
 
@@ -137,6 +149,11 @@ int main()
     printf("copy is success? %d\n", flagCopy);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat2.rows, mat2.cols, mat2.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat2.pData[0], mat2.pData[1]);
+
+    bool flagAdd = addMatrix(&mat, &mat2);
+    printf("addition is success? %d\n", flagAdd);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
 
 
