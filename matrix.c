@@ -152,9 +152,21 @@ bool multiplyMatrices()
 }
 
 // Function to find minimal value of a matrix
-long long findMin()
+float findMin(Matrix * ptrMat, float * ptrMin)
 {
-    return 0ll;
+    float currMin = __FLT_MAX__;
+
+    type rows = ptrMat->rows;   
+    type cols = ptrMat->cols;
+    type num = rows*cols;
+
+    for (int i = 0; i < num; i++)
+    {
+        float tmp = ptrMat->pData[i];
+        currMin = (currMin > tmp) ? tmp : currMin;
+    } 
+    *ptrMin = currMin;
+    return true;
 }
 
 // Function to find maximal value of a matrix
@@ -210,6 +222,13 @@ int main()
 
     bool flagMulScalar = multiplyScalar(2.0, &mat);
     printf("multiplying scalar is success? %d\n", flagMulScalar);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
+
+    float min;
+    bool flagFindMin = findMin(&mat, &min);
+    printf("finding min is success? %d\n", flagFindMin);
+    printf("min is %f\n", min);
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 }
