@@ -54,9 +54,14 @@ bool deleteMatrix(Matrix * ptrMat)
     return true;
 }
 
-// Function to copy a matrix
-bool copyMatrix()
+// Function to copy matrixSrc to matrixDest
+bool copyMatrix(Matrix * ptrMatSrc, Matrix * ptrMatDest)
 {
+    deleteMatrix(ptrMatDest);
+    type rows = ptrMatSrc->rows;
+    type cols = ptrMatSrc->cols;
+    float * ptrData = ptrMatSrc->pData;
+    createMatrix(rows, cols, ptrData, ptrMatDest);
     return true;
 }
 
@@ -122,9 +127,16 @@ int main()
     printf("rows is %lld, cols is %lld, pData is %p\n", mat.rows, mat.cols, mat.pData);
     printf("Data 1 is %f, data 2 is %f\n", mat.pData[0], mat.pData[1]);
 
-    bool flagDelete = deleteMatrix(&mat);
+    // bool flagDelete = deleteMatrix(&mat);
 
-    printf("delete is success? %d\n", flagDelete);
+    // printf("delete is success? %d\n", flagDelete);
+
+    Matrix mat2 = {};
+    bool flagCopy = copyMatrix(&mat, &mat2);
+
+    printf("copy is success? %d\n", flagCopy);
+    printf("rows is %lld, cols is %lld, pData is %p\n", mat2.rows, mat2.cols, mat2.pData);
+    printf("Data 1 is %f, data 2 is %f\n", mat2.pData[0], mat2.pData[1]);
 }
 
 
