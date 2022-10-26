@@ -4,6 +4,7 @@ test*
 # Non-source files
 *.o
 a.out
+reminder.md
 
 # VS Code files
 .vscode
