@@ -4,12 +4,16 @@
 // Function to create a matrix
 bool createMatrix(type rows, type cols, float * ptrData, Matrix * ptrMat)
 {
+    int flag = checkCreate(rows, cols, ptrData, ptrMat);
+    if (flag != 0)
+    {
+        printf("Please check your input and create the matrix again!\n");
+        return false;
+    }
     ptrMat->rows = rows;
     ptrMat->cols = cols;
     ptrMat->pData = (float *) malloc(rows*cols*sizeof(float));
     type num = rows * cols;
-    // check if the number of elements in ptrData is the same as the valid number of the matrix (which equals to rows*cols)
-    //TODO!!
 
     // copy the element in ptrData to pData in the matrix one by one
     for (int i = 0; i < num; i++)
@@ -17,6 +21,7 @@ bool createMatrix(type rows, type cols, float * ptrData, Matrix * ptrMat)
         float tmp = ptrData[i];
         ptrMat->pData[i] = tmp;
     }
+    ptrMat->create = 1;
     return true;
 }
 
