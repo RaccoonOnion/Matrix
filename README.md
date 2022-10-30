@@ -1,5 +1,5 @@
 # Project3 - Library for Matrix Operations in C
-Arthur: Yunxiang Yan (Student id: 11912525)
+Author: Yunxiang Yan (Student id: 11912525)
 
 ## Part I Functionality
 ### Methods: 
